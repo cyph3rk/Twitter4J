@@ -34,32 +34,40 @@ public final class AuthorizationFactory {
         Authorization auth = null;
         String consumerKey = conf.getOAuthConsumerKey();
         String consumerSecret = conf.getOAuthConsumerSecret();
+        String bearerToken = conf.getBearerToken();
 
-        if (consumerKey != null && consumerSecret != null) {
-            if (conf.isApplicationOnlyAuthEnabled()) {
-                OAuth2Authorization oauth2 = new OAuth2Authorization(conf);
-                String tokenType = conf.getOAuth2TokenType();
-                String accessToken = conf.getOAuth2AccessToken();
-                if (tokenType != null && accessToken != null) {
-                    oauth2.setOAuth2Token(new OAuth2Token(tokenType, accessToken));
-                }
-                auth = oauth2;
+        if (null != bearerToken) {
+            System.out.println("    001 BearerToken Autenticação");
+            BearerAuthorization bearer = new BearerAuthorization(bearerToken);
 
-            } else {
-                OAuthAuthorization oauth;
-                oauth = new OAuthAuthorization(conf);
-                String accessToken = conf.getOAuthAccessToken();
-                String accessTokenSecret = conf.getOAuthAccessTokenSecret();
-                if (accessToken != null && accessTokenSecret != null) {
-                    oauth.setOAuthAccessToken(new AccessToken(accessToken, accessTokenSecret));
-                }
-                auth = oauth;
-            }
+            auth = bearer;
         } else {
-            String screenName = conf.getUser();
-            String password = conf.getPassword();
-            if (screenName != null && password != null) {
-                auth = new BasicAuthorization(screenName, password);
+            if (consumerKey != null && consumerSecret != null) {
+                if (conf.isApplicationOnlyAuthEnabled()) {
+                    OAuth2Authorization oauth2 = new OAuth2Authorization(conf);
+                    String tokenType = conf.getOAuth2TokenType();
+                    String accessToken = conf.getOAuth2AccessToken();
+                    if (tokenType != null && accessToken != null) {
+                        oauth2.setOAuth2Token(new OAuth2Token(tokenType, accessToken));
+                    }
+                    auth = oauth2;
+
+                } else {
+                    OAuthAuthorization oauth;
+                    oauth = new OAuthAuthorization(conf);
+                    String accessToken = conf.getOAuthAccessToken();
+                    String accessTokenSecret = conf.getOAuthAccessTokenSecret();
+                    if (accessToken != null && accessTokenSecret != null) {
+                        oauth.setOAuthAccessToken(new AccessToken(accessToken, accessTokenSecret));
+                    }
+                    auth = oauth;
+                }
+            } else {
+                String screenName = conf.getUser();
+                String password = conf.getPassword();
+                if (screenName != null && password != null) {
+                    auth = new BasicAuthorization(screenName, password);
+                }
             }
         }
         if (null == auth) {

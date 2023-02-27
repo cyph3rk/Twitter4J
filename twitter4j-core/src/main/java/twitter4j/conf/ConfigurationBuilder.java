@@ -66,6 +66,12 @@ public final class ConfigurationBuilder {
         return this;
     }
 
+    public ConfigurationBuilder setBearerToken(String bearerToken) {
+        checkNotBuilt();
+        configurationBean.setBearerToken(bearerToken);
+        return this;
+    }
+
     public ConfigurationBuilder setHttpProxyHost(String httpProxyHost) {
         checkNotBuilt();
         configurationBean.setHttpProxyHost(httpProxyHost);

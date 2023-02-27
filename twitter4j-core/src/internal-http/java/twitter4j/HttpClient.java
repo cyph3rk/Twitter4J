@@ -40,6 +40,8 @@ public interface HttpClient {
 
     HttpResponse get(String url) throws TwitterException;
 
+    HttpResponse get(String url, Authorization authorization) throws TwitterException;
+
     HttpResponse post(String url, HttpParameter[] parameters
             , Authorization authorization, HttpResponseListener listener) throws TwitterException;
 

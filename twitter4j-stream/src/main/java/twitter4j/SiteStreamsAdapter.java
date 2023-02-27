@@ -39,6 +39,11 @@ public class SiteStreamsAdapter implements SiteStreamsListener {
     }
 
     @Override
+    public void onEditHistoryTweet(long forUser, EditHistoryTweet editHistoryTweet) {
+
+    }
+
+    @Override
     public void onDeletionNotice(long forUser, long directMessageId, long userId) {
     }
 

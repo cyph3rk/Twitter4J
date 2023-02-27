@@ -68,6 +68,8 @@ public interface SiteStreamsListener extends StreamListener {
      */
     void onDirectMessage(long forUser, DirectMessage directMessage);
 
+    void onEditHistoryTweet(long forUser, EditHistoryTweet editHistoryTweet);
+
     void onDeletionNotice(long forUser, long directMessageId, long userId);
 
     /**

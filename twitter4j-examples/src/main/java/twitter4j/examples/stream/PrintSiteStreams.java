@@ -111,6 +111,12 @@ public final class PrintSiteStreams {
         }
 
         @Override
+        public void onEditHistoryTweet(long forUser, twitter4j.EditHistoryTweet editHistoryTweet) {
+            System.out.println("onUnfollow for_user:" + forUser + " source:@"
+                    + " - " + editHistoryTweet.getText());
+        }
+
+        @Override
         public void onDeletionNotice(long forUser, long directMessageId, long userId) {
             System.out.println("Got a direct message deletion notice for_user:"
                     + forUser + " id:" + directMessageId);

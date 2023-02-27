@@ -80,6 +80,10 @@ public abstract class HttpClientBase implements HttpClient, Serializable {
         return request(new HttpRequest(RequestMethod.GET, url, null, null, this.requestHeaders));
     }
 
+    public HttpResponse get(String url, Authorization authorization) throws TwitterException {
+        return request(new HttpRequest(RequestMethod.GET, url, null, authorization, this.requestHeaders));
+    }
+
     @Override
     public HttpResponse post(String url, HttpParameter[] parameters
             , Authorization authorization, HttpResponseListener listener) throws TwitterException {

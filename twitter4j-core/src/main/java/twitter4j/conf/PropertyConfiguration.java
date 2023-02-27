@@ -61,8 +61,11 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
     private static final String OAUTH2_TOKEN_URL = "oauth2.tokenURL";
     private static final String OAUTH2_INVALIDATE_TOKEN_URL = "oauth2.invalidateTokenURL";
 
+    private static final String BEARER_TOKEN_URL = "Bearer.accessToken";
+
     private static final String REST_BASE_URL = "restBaseURL";
     private static final String STREAM_BASE_URL = "streamBaseURL";
+    private static final String STREAM_BASE_URL2 = "streamBaseURL2";
     private static final String USER_STREAM_BASE_URL = "userStreamBaseURL";
     private static final String SITE_STREAM_BASE_URL = "siteStreamBaseURL";
 
@@ -337,12 +340,19 @@ public final class PropertyConfiguration extends ConfigurationBase implements ja
             setOAuth2InvalidateTokenURL(getString(props, prefix, OAUTH2_INVALIDATE_TOKEN_URL));
         }
 
+        if (notNull(props, prefix, BEARER_TOKEN_URL)) {
+            setBearerToken(getString(props, prefix, BEARER_TOKEN_URL));
+        }
+
         if (notNull(props, prefix, REST_BASE_URL)) {
             setRestBaseURL(getString(props, prefix, REST_BASE_URL));
         }
 
         if (notNull(props, prefix, STREAM_BASE_URL)) {
             setStreamBaseURL(getString(props, prefix, STREAM_BASE_URL));
+        }
+        if (notNull(props, prefix, STREAM_BASE_URL2)) {
+            setStreamBaseURL2(getString(props, prefix, STREAM_BASE_URL2));
         }
         if (notNull(props, prefix, USER_STREAM_BASE_URL)) {
             setUserStreamBaseURL(getString(props, prefix, USER_STREAM_BASE_URL));

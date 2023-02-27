@@ -50,6 +50,7 @@ public final class JSONObjectType {
         RETWEETED_RETWEET,
         FAVORITED_RETWEET,
         QUOTED_TWEET,
+        DATA,
         UNKNOWN
     }
 
@@ -86,6 +87,8 @@ public final class JSONObjectType {
             return Type.SCRUB_GEO;
         } else if (!json.isNull("friends")) {
             return Type.FRIENDS;
+        } else if (!json.isNull("data")) {
+             return Type.DATA;
         } else if (!json.isNull("event")) {
             String event;
             try {

@@ -344,9 +344,7 @@ class TwitterStreamImpl extends TwitterBaseImpl implements TwitterStream {
     StatusStream getFilterStream(FilterQuery query) throws TwitterException {
         ensureAuthorizationEnabled();
         try {
-            return new StatusStreamImpl(getDispatcher(), http.post(conf.getStreamBaseURL()
-                    + "statuses/filter.json"
-                    , query.asHttpParameterArray(stallWarningsParam), auth, null), conf);
+            return new StatusStreamImpl(getDispatcher(), http.get(conf.getStreamBaseURL2() + "search/stream", auth), conf);
         } catch (IOException e) {
             throw new TwitterException(e);
         }

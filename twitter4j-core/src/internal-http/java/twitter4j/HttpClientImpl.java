@@ -205,6 +205,9 @@ class HttpClientImpl extends HttpClientBase implements HttpResponseCode, java.io
         }
 
         String authorizationHeader;
+
+        authorizationHeader = req.getAuthorization().getAuthorizationHeader(req);
+
         if (req.getAuthorization() != null && (authorizationHeader = req.getAuthorization().getAuthorizationHeader(req)) != null) {
             if (logger.isDebugEnabled()) {
                 logger.debug("Authorization: ", authorizationHeader.replaceAll(".", "*"));

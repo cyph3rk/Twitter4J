@@ -182,6 +182,9 @@ abstract class StatusStreamBase implements StatusStream {
                                     case DISCONNECTION:
                                         onDisconnectionNotice(line, listeners);
                                         break;
+                                    case DATA:
+                                        onEditHistoryTweet(json, listeners);
+                                        break;
                                     case UNKNOWN:
                                     default:
                                         logger.warn("Received unknown event:", CONF.getHttpClientConfiguration().isPrettyDebugEnabled() ? json.toString(1) : json.toString());
@@ -222,6 +225,10 @@ abstract class StatusStreamBase implements StatusStream {
 
     void onDirectMessage(JSONObject json, StreamListener[] listeners) throws TwitterException, JSONException {
         logger.warn("Unhandled event: onDirectMessage");
+    }
+
+    void onEditHistoryTweet(JSONObject json, StreamListener[] listeners) throws TwitterException, JSONException {
+        logger.warn("Unhandled event: onEditHistoryTweet");
     }
 
     void onDelete(JSONObject json, StreamListener[] listeners) throws TwitterException, JSONException {
@@ -357,6 +364,19 @@ abstract class StatusStreamBase implements StatusStream {
                 TwitterObjectFactory.registerJSONObject(directMessage, dmJSON);
             }
             return directMessage;
+        } catch (JSONException jsone) {
+            throw new TwitterException(jsone);
+        }
+    }
+
+    EditHistoryTweet asEditHistoryTweet (JSONObject json) throws TwitterException {
+        try {
+            JSONObject ehJSON = json.getJSONObject("edit_history_tweet_ids");
+            EditHistoryTweet editHistoryTweet = new EditHistoryTweetJSONImpl(ehJSON);
+            if (CONF.isJSONStoreEnabled()) {
+                TwitterObjectFactory.registerJSONObject(editHistoryTweet, ehJSON);
+            }
+            return editHistoryTweet;
         } catch (JSONException jsone) {
             throw new TwitterException(jsone);
         }

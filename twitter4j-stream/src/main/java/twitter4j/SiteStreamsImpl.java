@@ -127,6 +127,13 @@ final class SiteStreamsImpl extends StatusStreamBase {
     }
 
     @Override
+    protected void onEditHistoryTweet(final JSONObject json, StreamListener[] listeners) throws TwitterException {
+        for (StreamListener listener : listeners) {
+            ((SiteStreamsListener) listener).onEditHistoryTweet(forUser.get(), asEditHistoryTweet(json));
+        }
+    }
+
+    @Override
     protected void onFriends(final JSONObject json, StreamListener[] listeners) throws TwitterException, JSONException {
         for (StreamListener listener : listeners) {
             ((SiteStreamsListener) listener).onFriendList(forUser.get(), asFriendList(json));
