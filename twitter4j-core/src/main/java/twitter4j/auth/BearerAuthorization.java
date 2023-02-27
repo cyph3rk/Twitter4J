@@ -33,7 +33,6 @@ public class BearerAuthorization implements Authorization, java.io.Serializable 
 
     @Override
     public String getAuthorizationHeader(HttpRequest req) {
-        System.out.println("getAuthorizationHeader - BearerAuthorization");
         return basic;
     }
 

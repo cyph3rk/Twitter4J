@@ -37,7 +37,6 @@ public final class AuthorizationFactory {
         String bearerToken = conf.getBearerToken();
 
         if (null != bearerToken) {
-            System.out.println("    001 BearerToken Autenticação");
             BearerAuthorization bearer = new BearerAuthorization(bearerToken);
 
             auth = bearer;
